@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"aoc2022/common"
+	"fmt"
 )
 
 type direction struct {
@@ -20,22 +20,38 @@ func inBound(row, col int, trees []string) bool {
 }
 
 func checkDirection(tree byte, trees []string, row, col int, dir direction) bool {
-	if !inBound(row, col, trees) {
-		return true
+	var walk func()
+	result := false
+	walk = func() {
+		if !inBound(row, col, trees) {
+			result = true
+			return
+		}
+		if tree > trees[row][col] {
+			row = row + dir.y
+			col = col + dir.x
+			walk()
+		}
 	}
-	if tree > trees[row][col] {
-		return checkDirection(tree, trees, row+dir.y, col+dir.x, dir)
-	}
-	return false
+	walk()
+	return result
 }
 
-func checkDirectionForViewDistance(treeCount int, tree byte, trees []string, row, col int, dir direction) int { if !inBound(row, col, trees) {
-		return treeCount
+func viewDistance( tree byte, trees []string, row, col int, dir direction) int {
+	treeCount := 0
+	var walk func()
+	walk = func() {
+		if !inBound(row, col, trees) {
+			return
+		}
+		treeCount++
+		if tree > trees[row][col] {
+			row = row + dir.y
+			col = col + dir.x
+			walk()
+		}
 	}
-	treeCount++
-	if tree > trees[row][col] {
-		return checkDirectionForViewDistance(treeCount, tree, trees, row+dir.y, col+dir.x, dir)
-	}
+	walk()
 	return treeCount
 }
 
@@ -67,7 +83,7 @@ func part1(trees []string) int {
 	return len(trees)*2 + (len(trees[0])-2)*2 + count
 }
 
-func viewDistance(tree byte, trees []string, row, col int) int {
+func viewDistanceProduct(tree byte, trees []string, row, col int) int {
 	directions := []direction{
 		{1, 0},
 		{-1, 0},
@@ -76,7 +92,7 @@ func viewDistance(tree byte, trees []string, row, col int) int {
 	}
 	count := 1
 	for _, dir := range directions {
-		count *= checkDirectionForViewDistance(0, tree, trees, row+dir.y, col+dir.x, dir)
+		count *= viewDistance(tree, trees, row+dir.y, col+dir.x, dir)
 	}
 	return count
 }
@@ -86,7 +102,7 @@ func part2(trees []string) int {
 	for i := 1; i < len(trees)-1; i++ {
 		for j := 1; j < len(trees[i])-1; j++ {
 			tree := trees[i][j]
-			vd := viewDistance(tree, trees, i, j)
+			vd := viewDistanceProduct(tree, trees, i, j)
 			if vd > max {
 				max = vd
 			}
