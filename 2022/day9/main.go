@@ -18,8 +18,8 @@ type rope struct {
 }
 
 type rope2 struct {
-	knots [10]pos
-	visited    []pos
+	knots   [10]pos
+	visited []pos
 }
 
 func (r *rope2) updateHead(dir byte) {
@@ -35,7 +35,7 @@ func (r *rope2) updateHead(dir byte) {
 	}
 }
 
-func (r *rope2) updateKnots(head,tail int) {
+func (r *rope2) updateKnots(head, tail int) {
 	if head == 9 {
 		return
 	}
@@ -48,10 +48,10 @@ func (r *rope2) updateKnots(head,tail int) {
 			r.knots[tail].x += sign(dx)
 		}
 	} else if math.Abs(float64(dx)) != 1 || math.Abs(float64(dy)) != 1 {
-		r.knots[tail].y += sign(dy) 
-		r.knots[tail].x += sign(dx) 
+		r.knots[tail].y += sign(dy)
+		r.knots[tail].x += sign(dx)
 	}
-	r.updateKnots(head+1,tail+1)
+	r.updateKnots(head+1, tail+1)
 }
 
 func (r *rope2) addToVisited(p pos) {
@@ -104,8 +104,8 @@ func (r *rope) updateTail() {
 			r.tail.x += sign(dx)
 		}
 	} else if math.Abs(float64(dx)) != 1 || math.Abs(float64(dy)) != 1 {
-		r.tail.y += sign(dy) 
-		r.tail.x += sign(dx) 
+		r.tail.y += sign(dy)
+		r.tail.x += sign(dx)
 	}
 }
 
@@ -130,7 +130,6 @@ func part1(input []string) int {
 	return len(r.visited)
 }
 
-
 func part2(input []string) int {
 	r := rope2{}
 	for _, m := range input {
@@ -139,10 +138,9 @@ func part2(input []string) int {
 		if err != nil {
 			panic(err)
 		}
-
 		for n := 0; n < num; n++ {
 			r.updateHead(words[0][0])
-			r.updateKnots(0,1)
+			r.updateKnots(0, 1)
 			r.addToVisited(r.knots[9])
 		}
 	}
@@ -151,6 +149,6 @@ func part2(input []string) int {
 
 func main() {
 	input := common.Open(common.Args(1)).Lines()
-	fmt.Printf("part1: %d\n",part1(input))
-	fmt.Printf("part2: %d\n",part2(input))
+	fmt.Printf("part1: %d\n", part1(input))
+	fmt.Printf("part2: %d\n", part2(input))
 }

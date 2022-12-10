@@ -29,8 +29,7 @@ func checkDirection(tree byte, trees []string, row, col int, dir direction) bool
 	return false
 }
 
-func checkDirectionForViewDistance(treeCount int, tree byte, trees []string, row, col int, dir direction) int {
-	if !inBound(row, col, trees) {
+func checkDirectionForViewDistance(treeCount int, tree byte, trees []string, row, col int, dir direction) int { if !inBound(row, col, trees) {
 		return treeCount
 	}
 	treeCount++
