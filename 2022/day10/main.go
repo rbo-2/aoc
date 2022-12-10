@@ -32,8 +32,7 @@ func part1(input []string) int {
 }
 
 func part2(input []string) string {
-	x := 1
-	spriteX := x
+	spriteX := 1
 	crt := strings.Builder{}
 	crtPos := 0
 	for _, i := range input {
@@ -64,8 +63,7 @@ func part2(input []string) string {
 					crt.WriteByte('\n')
 				}
 			}
-			x += n
-			spriteX = x
+			spriteX += n
 		}
 	}
 	return crt.String()
