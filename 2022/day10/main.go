@@ -8,25 +8,36 @@ import (
 	"strings"
 )
 
-func part1(input []string) int { x := 1
-	xInCycle := []int{}
+func part1(input []string) int {
+	x := 1
+	sum := 0
+	cycle := 0
+	y := 20
 	for _, i := range input {
 		words := strings.Split(i, " ")
 		if words[0] == "noop" {
-			xInCycle = append(xInCycle, x)
+			cycle++
+			if cycle == y {
+				sum+=y*x
+				y+=40
+			}
 		} else {
 			n, err := strconv.Atoi(words[1])
 			if err != nil {
 				panic(err)
 			}
-			xInCycle = append(xInCycle, x)
-			xInCycle = append(xInCycle, x)
+			cycle++
+			if cycle == y {
+				sum+=y*x
+				y+=40
+			}
+			cycle++
+			if cycle == y {
+				sum+=y*x
+				y+=40
+			}
 			x += n
 		}
-	}
-	sum := 0
-	for i := 20; i < len(xInCycle); i += 40 {
-		sum += i * xInCycle[i-1]
 	}
 	return sum
 }
