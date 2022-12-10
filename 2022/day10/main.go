@@ -3,12 +3,12 @@ package main
 import (
 	"aoc2022/common"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
 
-func part1(input []string) int {
-	x := 1
+func part1(input []string) int { x := 1
 	xInCycle := []int{}
 	for _, i := range input {
 		words := strings.Split(i, " ")
@@ -38,10 +38,10 @@ func part2(input []string) string {
 	for _, i := range input {
 		words := strings.Split(i, " ")
 		if words[0] == "noop" {
-			if crtPos == spriteX+1 || crtPos == spriteX-1 || crtPos == spriteX {
+			if math.Abs(float64(spriteX-crtPos)) <= 1 {
 				crt.WriteByte('#')
 			} else {
-				crt.WriteByte('.')
+				crt.WriteByte(' ')
 			}
 			crtPos = (crtPos+1) % 40
 			if crtPos == 0 {
@@ -53,10 +53,10 @@ func part2(input []string) string {
 				panic(err)
 			}
 			for i := 0; i < 2; i++ {
-				if crtPos == spriteX+1 || crtPos == spriteX-1 || crtPos == spriteX {
+				if math.Abs(float64(spriteX-crtPos)) <= 1 {
 					crt.WriteByte('#')
 				} else {
-					crt.WriteByte('.')
+					crt.WriteByte(' ')
 				}
 				crtPos = (crtPos+1) % 40
 				if crtPos == 0 {
