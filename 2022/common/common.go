@@ -5,21 +5,21 @@ import (
 	"strings"
 )
 
-type aocRawInput []byte
+type AocRawInput []byte
 
-func Open(file string) aocRawInput {
+func Open(file string) AocRawInput {
 	data, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
-	return aocRawInput(data)
+	return AocRawInput(data)
 }
 
-func (input aocRawInput) Lines() []string {
+func (input AocRawInput) Lines() []string {
 	return strings.Split(string(input[0:len(input)-1]), "\n")
 }
 
-func (input aocRawInput) SplitOn(sep string) []string {
+func (input AocRawInput) SplitOn(sep string) []string {
 	return strings.Split(string(input[0:len(input)-1]), sep)
 }
 

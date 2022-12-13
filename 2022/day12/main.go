@@ -128,7 +128,7 @@ func part2(input []string) int {
 	min := steps[y][x]
 	for i, row := range grid {
 		for j, e := range row {
-			if e == 'a' &&  steps[i][j]< min && steps[i][j] != 0 {
+			if e == 'a' && steps[i][j] < min && steps[i][j] != 0 {
 				min = steps[i][j]
 			}
 		}
