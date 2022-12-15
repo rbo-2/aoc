@@ -2,6 +2,7 @@ package common
 
 import (
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -28,4 +29,43 @@ func Args(i int) string {
 		panic("need an argument!!!")
 	}
 	return os.Args[i]
+}
+
+func Abs(n int) int {
+	if n < 0 {
+		return -n
+	}
+	return n
+}
+
+func Sign(n int) int {
+	if n < 0 {
+		return -1
+	}
+	if n > 0 {
+		return 1
+	}
+	return 0
+}
+
+func Int(n string) int {
+	num, err := strconv.Atoi(n)
+	if err != nil {
+		panic(err)
+	}
+	return num
+}
+
+func Min(i, j int) int {
+	if i < j {
+		return i
+	}
+	return j
+}
+
+func Max(i, j int) int {
+	if i > j {
+		return i
+	}
+	return j
 }
